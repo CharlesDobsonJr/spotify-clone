@@ -3,7 +3,7 @@ import {
     useSessionContext, 
     useUser as useSupaUser 
 } from "@supabase/auth-helpers-react";
-import { createContext, useState, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { Subscription, UserDetails } from "@/types";
 

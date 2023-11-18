@@ -3,7 +3,7 @@
 import { MyUserContextProvider } from "@/hooks/useUser";
 
 interface UserProviderProps {
-    children: React.ReactNnode:
+    children: React.ReactNode;
 };
 
 const UserProvider: React.FC<UserProviderProps> = ({
