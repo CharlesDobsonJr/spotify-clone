@@ -6,6 +6,7 @@ import {
 } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 
 import Modal from "./Modal";
 
@@ -23,6 +24,9 @@ const AuthModal = () => {
         >
             <Auth
                 supabaseClient={supabaseClient}
+                appearance={{
+                    theme: ThemeSupa
+                }}
             
             />
         </Modal>
