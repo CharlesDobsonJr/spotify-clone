@@ -85,7 +85,7 @@ const Modal: React.FC<ModalProps> = ({
                                 hover:text-white
                                 absolute
                                 top-[10px]
-                                top-[10px]
+                                right-[10px]
                                 inline-flex
                                 h-[25px]
                                 w-[25px]
