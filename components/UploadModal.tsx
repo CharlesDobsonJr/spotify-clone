@@ -6,7 +6,7 @@ import { useState } from "react";
 import useUploadModal from "@/hooks/useUploadModal";
 
 import Modal from "./Modal";
-import { Input } from "./Input";
+import Input from "./Input";
 
 const UploadModal = () => {
     const [isLoading, setIsLoading] = useState();
