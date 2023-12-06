@@ -19,5 +19,5 @@ const getsongs = async (): Promise<Song[]> => {
         return (data as any) || [];
 };
 
-export default getSongs;
+export default getsongs;
 // the instructor had getSongs on his in case this breaks

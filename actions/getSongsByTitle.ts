@@ -1,7 +1,7 @@
 import { Song } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import getsongs from "./getSongs";
+
 import getSongs from "./getSongs";
 
 const getSongsByTitle = async (title: string): Promise<Song[]> => {
@@ -10,12 +10,14 @@ const getSongsByTitle = async (title: string): Promise<Song[]> => {
     });
 
     if (!title) {
-        const allSongs = await getSongs
+        const allSongs = await getSongs();
+        return allSongs;
     }
 
     const { data, error } = await supabase
         .from('songs')
         .select('*')
+        .ilike('title', `%${title}%`)
         .order('created_at', { ascending: false });
 
         if (error) {
@@ -25,5 +27,5 @@ const getSongsByTitle = async (title: string): Promise<Song[]> => {
         return (data as any) || [];
 };
 
-export default getsongs;
+export default getSongsByTitle;
 // the instructor had getSongs on his in case this breaks
