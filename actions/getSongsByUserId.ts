@@ -30,5 +30,4 @@ const getSongsByUserId = async (): Promise<Song[]> => {
     return (data as any) || [];
 };
 
-export default getsongs;
-// the instructor had getSongs on his in case this breaks
+export default getSongsByUserId;
