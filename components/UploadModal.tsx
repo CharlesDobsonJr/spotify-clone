@@ -103,7 +103,7 @@ const UploadModal = () => {
 
         if (supabaseError) {
             setIsLoading(false);
-            return toast.error(supabase.Error.message);
+            return toast.error(supabaseError.message);
         }
 
         router.refresh();
