@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import useDebounce from "@/hooks/useDebounce";
+import Input from "./Input";
 
 const SearchInput = () => {
     const router = useRouter();
@@ -24,7 +25,11 @@ const SearchInput = () => {
         router.push(url);
     }, [debouncedValue, router]);
     return ( 
-        <div>Search input!</div>
+        <Input
+            placeholder="What would you like to listen to?"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+        />
      );
 }
  
