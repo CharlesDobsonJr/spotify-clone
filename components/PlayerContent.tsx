@@ -4,6 +4,9 @@ import { Song } from "@/types";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { useState } from "react";
+
+import usePlayer from "@/hooks/usePlayer";
 
 import MediaItem from "./MediaItem";
 import LikeButton from "./LikeButton";
@@ -18,8 +21,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     song,
     songUrl
 }) => {
-    const Icon = true ? BsPauseFill : BsPlayFill;
-    const VolumeIcon = true ? HiSpeakerXMark : HiSpeakerWave;
+    const player = usePlayer();
+    const [volume, setVolume] = useState(1);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+    const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
     return ( 
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
