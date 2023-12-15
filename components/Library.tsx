@@ -1,6 +1,6 @@
 "use client";
 
-import { TbPlaylist } from "react-icons/tb";
+import { TbPlaylist, TbPlaylistAdd } from "react-icons/tb";
 import { AiOutlinePlus } from "react-icons/ai";
 
 import useAuthModal from "@/hooks/useAuthModal";
@@ -53,7 +53,7 @@ const Library: React.FC<LibraryProps> = ({
                         gap-x-2
                         "
                     >
-                        <TbPlaylist className="text-neutral-400" size={26} />
+                        <TbPlaylistAdd className="text-neutral-400" size={26} />
                         <p
                             className="
                             text-neutral-400
