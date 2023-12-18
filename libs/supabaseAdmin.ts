@@ -116,5 +116,28 @@ const copyBillingDetailsToCustomer = async (
         .eq('id', uuid);
     
     if (error) throw error;
-};
+}; 
+
+const manageSubscriptionStatusChange = async (
+    subscriptionId: string,
+    customerId: string,
+    createAction = false
+) => {
+    const { data: customerData, error: noCustomerError } = await supabaseAdmin
+        .from('customers')
+        .select('id')
+        .eq('stripe_customer_id', customerId)
+        .single();
+
+    if (noCustomerError) throw noCustomerError;
+
+    const { id: uuid } = customerData!;
+
+    const subscription = await stripe.subscriptions.retrieve(
+        subscriptionId,
+        {
+            expand: ["default_payment_method"]
+        }
+    );
+}
 
