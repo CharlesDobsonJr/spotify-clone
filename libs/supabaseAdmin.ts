@@ -52,6 +52,69 @@ const upsertPriceRecord = async (price: Stripe.Price) => {
         .from('prices')
         .upsert([priceData]);
 
-        
+    if (error) {
+        throw error;
+    }
+
+    console.log(`Price inserted/updated: ${price.id}`);
 }
+
+const createOrRetrieveACustomer = async ({
+    email,
+    uuid
+}: {
+    email: string,
+    uuid: string
+}) => {
+    const { data, error } = await supabaseAdmin
+        .from('customers')
+        .select('stripe_customer_id')
+        .eq('id', uuid)
+        .single();
+
+    if (error || !data?.stripe_customer_id) {
+        const customerData: { metadata: { supabaseUUID: string }; email?: string } = {
+            metadata: {
+                supabaseUUID: uuid
+            }
+        };
+
+        if (email) customerData.email = email;
+
+        const customer = await stripe.customers.create(customerData);
+        const { error: supabaseError } = await supabaseAdmin
+            .from('customers')
+            .insert([{id: uuid, stripe_customer_id: customer.id}]);
+
+        if (supabaseError) {
+            throw supabaseError;
+        }
+
+        console.log(`New customer created and inserted for ${uuid}`);
+        return customer.id;
+    }
+
+    return data.stripe_customer_id;
+};
+
+const copyBillingDetailsToCustomer = async (
+    uuid: string,
+    payment_method: Stripe.PaymentMethod
+) => {
+    const customer = payment_method.customer as string;
+    const { name, phone, address } = payment_method.billing_details;
+    if (!name || !phone || !address) return;
+
+    // @ts-ignore
+    await stripe.customers.update(customer, { name, phone, address });
+    const { error } = await supabaseAdmin
+        .from('users')
+        .update({
+            billing_address: { ...address },
+            payment_method: { ...payment_method[payment_method.type] }
+        })
+        .eq('id', uuid);
+    
+    if (error) throw error;
+};
 
