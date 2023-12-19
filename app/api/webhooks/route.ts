@@ -9,3 +9,13 @@ import {
     manageSubscriptionStatusChange
 } from "@/libs/supabaseAdmin";
 
+const relevantEvents = new Set([
+    'product.created',
+    'product.updated',
+    'price.created',
+    'price.updated',
+    'checkout.session.completed',
+    'customer.subscription.created',
+    'customer.subscription.updated',
+    'customer.subscription.deleted',
+])
