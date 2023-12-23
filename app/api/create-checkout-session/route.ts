@@ -11,4 +11,16 @@ export async function POST(
 ) {
     const { price, quantity = 1, metadata = {} } = await request.json();
     
+    try {
+        const supabase = createRouteHandlerClient({
+            cookies,
+        });
+
+        const { data: { user } } = await supabase.auth.getUser();
+
+        const customer = await createOrRetrieveCustomer({
+            uuid: user?.id || '',
+            email: user?.email || ''
+        });
+    }
 }
