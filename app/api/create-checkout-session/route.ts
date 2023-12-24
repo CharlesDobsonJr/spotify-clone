@@ -33,10 +33,12 @@ export async function POST(
                     quantity
                 }
             ],
-            mode: 'subscription'
+            mode: 'subscription',
             allow_promotion_codes: true,
             subscription_data: {
-                trial_from_plan: true,
+                // Fix: Use `trial_period_days` instead of `trial_from_plan`
+                trial_period_days: 7, // Replace with the desired trial period in days
+                // trial_from_plan: true,
                 metadata
             },
             success_url: `${getURL()}/account`,
@@ -48,4 +50,4 @@ export async function POST(
         console.log(error);
         return new NextResponse('Internal Error', { status: 500 });
     }
-}
+};
