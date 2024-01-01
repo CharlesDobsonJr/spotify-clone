@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useState } from "react";
+import Button from "@/components/Button";
 
 const AccountContent = () => {
     const router = useRouter();
@@ -36,8 +37,32 @@ const AccountContent = () => {
         setLoading(false);
     }
     return ( 
-        <div>
-            Account Content
+        <div className="mb-7 px-6">
+            {!subscription && (
+                <div className="flex flex-col gap-y-4">
+                    <p>No active plan.</p>
+                    <Button
+                        onClick={subscribeModal.onOpen}
+                        className="w-[300px]"
+                    >
+                        Subscribe
+                    </Button>
+                </div>
+            )}
+            {subscription && (
+                <div className="flex flex-col gap-y-4">
+                    <p>
+                        You are currently on the <b>{subscription?.prices?.products?.name}</b> plan.
+                    </p>
+                    <Button
+                        disabled={loading || isLoading}
+                        onClick={redirectToCustomerPortal}
+                        className="w-[300px]"
+                    >
+                        Open customer portal
+                    </Button>
+                </div>
+            )}
         </div>
      );
 }
