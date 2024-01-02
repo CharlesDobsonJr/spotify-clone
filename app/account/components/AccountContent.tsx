@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { postData } from "@/libs/helpers";
 import toast from "react-hot-toast";
 
